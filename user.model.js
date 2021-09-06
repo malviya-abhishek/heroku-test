@@ -19,7 +19,7 @@ userSchema.set("toJSON", {
 });
 
 userSchema.findById = function (cb) {
-	return this.model("Users").find({}, cb);
+	return this.model("Users").findOne({ }, cb);
 };
 
 const User = mongoose.model("Users", userSchema);
@@ -29,11 +29,23 @@ exports.findByEmail = (email) => {
 };
 
 exports.findById = () => {
-	return User.findById().then((result) => {
-		console.log(result);
-		result = result.toJSON();
+	console.log( "hehestart");
+
+	return User.find().then((result) => {
+		result = JSON.stringify(result);
+		// console.log( "hehe" ,result);
 		return result;
+	}).catch((err)=>{
+		console.log("not hehe" ,err);
 	});
+
+	// return User.findById().then((result) => {
+	// 	console.log( "hehe" ,result);
+	// 	// result = result.toJSON();
+	// 	return result;
+	// }).catch((err)=>{
+	// 	console.log("not hehe" ,err);
+	// });
 };
 
 exports.createUser = (userData) => {
